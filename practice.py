@@ -1,0 +1,10 @@
+import sqlite3
+cricket = sqlite3.connect("cricket.db")
+cur_cric = cricket.cursor()
+cur_cric.execute("create table if not exists image(img BLOB)")
+file = open("FB_IMG_1487255052046.jpg", "rb")
+cur_cric.execute("insert into image values(?)", (sqlite3.Binary(file.read()),))
+cricket.commit()
+cur_cric.execute("select img from image")
+record = cur_cric.fetchone()
+print(record.read())
